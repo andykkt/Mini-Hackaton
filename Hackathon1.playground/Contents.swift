@@ -34,25 +34,24 @@ func binarySearch<T: Comparable>(_ a: [T], key: T, range: Range<Int>) -> Int? {
 
 func pickValue(range: CountableClosedRange<Int>, medium: Int, prevValue: Int?) -> Int {
     var pick: Int
-    if range.lowerBound > medium {
-        pick = range.lowerBound
-    } else if range.upperBound < medium {
-        pick = range.upperBound
-    } else {
-        if let prevValue = prevValue {
+    if let prevValue = prevValue {
+        if prevValue < range.lowerBound {
+            pick = range.lowerBound
+        } else if prevValue > range.upperBound {
+            pick = range.upperBound
+        } else {
             let array = [Int](range)
             if let index = binarySearch(array, key: prevValue, range: 0..<range.count) {
                 pick = array[index]
             } else {
-                if prevValue < range.lowerBound {
-                    pick = range.lowerBound
-                } else if prevValue > range.upperBound {
-                    pick = range.upperBound
-                } else {
-                    print ("not possible")
-                    fatalError()
-                }
+                fatalError("Not possible to reach here")
             }
+        }
+    } else {
+        if range.lowerBound > medium {
+            pick = range.lowerBound
+        } else if range.upperBound < medium {
+            pick = range.upperBound
         } else {
             pick = medium
         }
