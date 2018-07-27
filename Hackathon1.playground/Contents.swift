@@ -40,12 +40,7 @@ func pickValue(range: CountableClosedRange<Int>, medium: Int, prevValue: Int?) -
         } else if prevValue > range.upperBound {
             pick = range.upperBound
         } else {
-            let array = [Int](range)
-            if let index = binarySearch(array, key: prevValue, range: 0..<range.count) {
-                pick = array[index]
-            } else {
-                fatalError("Not possible to reach here")
-            }
+            pick = prevValue
         }
     } else {
         if range.lowerBound > medium {
@@ -84,7 +79,8 @@ let rangesArray: [[CountableClosedRange<Int>]] = [[1...3, 3...7, (-2)...0],
                    [1...3, 1...3, 4...8, 1...3, 1...3, 4...8],
                    [1...3, 1...4, 4...7],
                    [(-10)...(-4), (-20)...(-11), (-2)...(-1)],
-                   [1...300, 1150...2000, 4...8, 1...3, 1...3, 4...8]]
+                   [1...300, 1150...2000, 4...8, 1...3, 1...3, 4...8],
+                   [1...300, 100...200, 4...8, 1...3, 1...3, 4...8]]
 
 rangesArray.forEach {
     print("============")
