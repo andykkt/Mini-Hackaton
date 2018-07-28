@@ -4,10 +4,12 @@ import UIKit
 
 func median(ranges: [CountableClosedRange<Int>]) -> Int {
     var max = 0
+    var min = 0
     ranges.forEach {
         max += $0.upperBound
+        min += $0.lowerBound
     }
-    return Int(ceil(Float(max)/Float(ranges.count)))
+    return Int(ceil(Float(max+min)/Float(ranges.count)))
 }
 
 func binarySearch<T: Comparable>(_ a: [T], key: T, range: Range<Int>) -> Int? {
@@ -76,7 +78,8 @@ let rangesArray: [[CountableClosedRange<Int>]] = [[1...3, 3...7, (-2)...0],
                    [1...12, 2...6, (-10)...10, (-4)...12, 26...29, (-12)...40],
                    [1...300, 301...302, 304...400],
                    [1...100, 20...40, 30...50, 20...50, 21...25, 42...80, 20...80, 30...51],
-                   [1...300, 1...200, 200...300]
+                   [1...300, 1...200, 200...300],
+                   [(-300)...(-1), (-202)...(-21), (-300)...(-200)]
                 ]
 
 rangesArray.forEach {
