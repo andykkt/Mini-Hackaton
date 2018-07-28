@@ -98,7 +98,7 @@ let rangesArray: [[CountableClosedRange<Int>]] = [[1...3, 3...7, (-2)...0],
 
 rangesArray.forEach {
     print("============")
-    print("ranges (\($0)")
+    print("ranges: (\($0.map { "\($0.lowerBound...$0.upperBound)" })")
     let number = minimumSum(ranges: $0)
     print("minimumSum: (\(number))")
     print("============")
