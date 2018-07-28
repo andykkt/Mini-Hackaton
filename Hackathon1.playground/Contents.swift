@@ -32,24 +32,24 @@ func binarySearch<T: Comparable>(_ a: [T], key: T, range: Range<Int>) -> Int? {
     }
 }
 
+func closest(value: Int, from range: CountableClosedRange<Int>) -> Int {
+    let pick: Int
+    if value < range.lowerBound {
+        pick = range.lowerBound
+    } else if value > range.upperBound {
+        pick = range.upperBound
+    } else {
+        pick = value
+    }
+    return pick
+}
+
 func pickValue(range: CountableClosedRange<Int>, medium: Int, prevValue: Int?) -> Int {
     var pick: Int
     if let prevValue = prevValue {
-        if prevValue < range.lowerBound {
-            pick = range.lowerBound
-        } else if prevValue > range.upperBound {
-            pick = range.upperBound
-        } else {
-            pick = prevValue
-        }
+        pick = closest(value: prevValue, from: range)
     } else {
-        if range.lowerBound > medium {
-            pick = range.lowerBound
-        } else if range.upperBound < medium {
-            pick = range.upperBound
-        } else {
-            pick = medium
-        }
+        pick = closest(value: medium, from: range)
     }
     return pick
 }
