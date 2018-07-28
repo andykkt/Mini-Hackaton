@@ -67,13 +67,7 @@ func minimumSum(ranges: [CountableClosedRange<Int>]) -> Int {
         } else {
             if ranges.count > index + 1 {
                 let nextRange = ranges[index+1]
-                if !nextRange.contains(pick) {
-                    if range.upperBound < nextRange.lowerBound {
-                        pick = range.upperBound
-                    } else {
-                        pick = range.lowerBound
-                    }
-                }
+                pick = closest(value: pick, from: nextRange)
             }
             print("first pick: \(pick)")
         }
@@ -93,7 +87,8 @@ let rangesArray: [[CountableClosedRange<Int>]] = [[1...3, 3...7, (-2)...0],
                    [1...300, 100...200, 4...8, 1...3, 1...3, 4...8],
                    [1...2, 2...6, 6...10, 11...12, 12...29, 29...40],
                    [1...12, 2...6, (-10)...10, (-4)...12, 26...29, (-12)...40],
-                   [1...300, 301...302, 304...400]
+                   [1...300, 301...302, 304...400],
+                   [1...100, 20...40, 30...50, 20...50, 21...25, 42...80, 20...80, 30...51]
                 ]
 
 rangesArray.forEach {
