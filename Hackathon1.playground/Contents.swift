@@ -44,37 +44,36 @@ func closest(value: Int, from range: CountableClosedRange<Int>) -> Int {
     return pick
 }
 
-func pickValue(range: CountableClosedRange<Int>, medium: Int, prevValue: Int?) -> Int {
-    var pick: Int
-    if let prevValue = prevValue {
-        pick = closest(value: prevValue, from: range)
-    } else {
-        pick = closest(value: medium, from: range)
-    }
-    return pick
-}
-
 func minimumSum(ranges: [CountableClosedRange<Int>]) -> Int {
     let mediumValue = medium(ranges: ranges)
     print("mediumValue: \(mediumValue)")
     var sum = 0
     var prevValue: Int?
     for (index, range) in ranges.enumerated() {
-        var pick = pickValue(range: range, medium: mediumValue, prevValue: prevValue)
+        var pick: Int
         if let prevValue = prevValue {
+            pick = closest(value: prevValue, from: range)
             sum += abs(prevValue - pick)
             print("prevValue: \(prevValue) pick: \(pick)")
         } else {
+            pick = closest(value: mediumValue, from: range)
             if ranges.count > index + 1 {
                 let nextRange = ranges[index+1]
-                pick = closest(value: pick, from: nextRange)
+                if !nextRange.contains(pick) {
+                    if range.upperBound < nextRange.lowerBound {
+                        pick = range.upperBound
+                    } else {
+                        pick = range.lowerBound
+                    }
+                } else {
+                    pick = closest(value: pick, from: nextRange)
+                }
             }
             print("first pick: \(pick)")
         }
         print("sum: \(sum)")
         prevValue = pick
     }
-    
     return sum
 }
 
