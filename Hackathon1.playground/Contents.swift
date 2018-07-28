@@ -2,7 +2,7 @@
 
 import UIKit
 
-func medium(ranges: [CountableClosedRange<Int>]) -> Int {
+func median(ranges: [CountableClosedRange<Int>]) -> Int {
     var min = 0
     var max = 0
     ranges.forEach {
@@ -45,8 +45,8 @@ func closest(value: Int, from range: CountableClosedRange<Int>) -> Int {
 }
 
 func minimumSum(ranges: [CountableClosedRange<Int>]) -> Int {
-    let mediumValue = medium(ranges: ranges)
-    print("mediumValue: \(mediumValue)")
+    let medianValue = median(ranges: ranges)
+    print("medianValue: \(medianValue)")
     var sum = 0
     var prevValue: Int?
     for (index, range) in ranges.enumerated() {
@@ -56,7 +56,7 @@ func minimumSum(ranges: [CountableClosedRange<Int>]) -> Int {
             sum += abs(prevValue - pick)
             print("prevValue: \(prevValue) pick: \(pick)")
         } else {
-            pick = closest(value: mediumValue, from: range)
+            pick = closest(value: medianValue, from: range)
             if ranges.count > index + 1 {
                 let nextRange = ranges[index+1]
                 if !nextRange.contains(pick) {
