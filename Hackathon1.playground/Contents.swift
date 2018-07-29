@@ -41,25 +41,7 @@ func minimumSum(ranges: [CountableClosedRange<Int>]) -> Int {
     let range = ranges[0]
     var minimumSum = Int.max
     for (_, value) in range.enumerated() {
-        var sum = 0
-        var prevValue: Int?
-        for (index, range) in ranges.enumerated() {
-            var pick: Int
-            if let prevValue = prevValue {
-                pick = closest(value: prevValue, from: range)
-                sum += abs(prevValue - pick)
-            } else {
-                pick = closest(value: value, from: range)
-                if ranges.count > index + 1 {
-                    let nextRange = ranges[index+1]
-                    if !nextRange.contains(pick) {
-                        let nextClosest = closest(value: pick, from: nextRange)
-                        pick = closest(value: nextClosest, from: range)
-                    }
-                }
-            }
-            prevValue = pick
-        }
+        let sum = getsum(value: value, ranges: ranges)
         if minimumSum > sum {
             minimumSum = sum
         }
